@@ -1,0 +1,632 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Общий фон страницы – чёрный */
+body {
+    background-color: #000;
+    position: relative;
+}
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('textura.jpg');
+    background-repeat: repeat;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
+}
+.archive {
+    position: relative;
+    color: #fff;
+    background: rgba(0,0,0,0.5);
+    padding: 10px;
+}
+.header-sky {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1600px;
+    background-image: url('bg.gif');
+    background-repeat: repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: -1;
+    pointer-events: none;
+}
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 1rem;
+    padding-top: 6rem;
+}
+.mess-title {
+    font-family: 'Rakkas', cursive;
+    font-size: 3rem;
+    color: white;
+    text-align: center;
+    text-shadow: 3px 3px 0 black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+    background: rgba(0,0,0,0.5);
+    padding: 1rem;
+    display: inline-block;
+    width: 100%;
+}
+.warning {
+    display: block;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.8rem;
+    color: #ffcc00;
+    text-align: center;
+    text-shadow: 1px 1px 0 black;
+    background: rgba(0,0,0,0.5);
+    padding: 1rem;
+    width: 100%;
+}
+.room-block {
+    position: relative;
+    margin: 2rem 0;
+    text-align: center;
+}
+.room-gif {
+    max-width: 80%;
+    border: 5px solid white;
+    box-shadow: 10px 10px 0 rgba(0,0,0,0.5);
+    background: #fff;
+    padding: 5px;
+    display: block;
+    margin: 0 auto;
+}
+.typing-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1.2rem;
+    color: #0f0;
+    background: rgba(0,0,0,0.7);
+    padding: 1rem;
+    border-left: 4px solid #0f0;
+    text-align: left;
+    white-space: pre-wrap;
+    max-width: 70%;
+    text-shadow: 0 0 2px black;
+}
+@media (max-width: 768px) {
+    .container { padding: 1rem; }
+    .mess-title { font-size: 1.8rem; }
+    .room-gif { max-width: 100%; }
+    .typing-text { font-size: 0.9rem; max-width: 90%; }
+}
+
+/* Кассета */
+.cassette-player {
+    position: relative;
+    text-align: center;
+    margin: 2rem auto;
+    background: #000;
+    padding: 2rem;
+    border-radius: 0;
+    box-shadow: 0 0 20px 5px rgba(0,100,255,0.5), 0 0 40px 10px rgba(0,100,255,0.3);
+    transition: box-shadow 0.3s ease;
+}
+.cassette-player:hover .cassette-tooltip{
+    display:block;
+    box-shadow: 0 0 20px 5px rgb(255,0,170), 0 0 40px 10px rgba(255,0,200,0.473);
+}
+.cassette-player::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 110%;
+    height: 110%;
+    transform: translate(-50%,-50%);
+    background: radial-gradient(ellipse at center, rgba(0,100,255,0.25), transparent);
+    filter: blur(20px);
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 50%;
+    transition: background 0.3s ease;
+}
+.cassette-player:hover::before {
+    background: radial-gradient(ellipse at center, rgba(255,0,0,0.3), transparent);
+}
+.cassette-player img {
+    max-width: 250px;
+    display: block;
+    margin: 0 auto;
+    transition: transform 0.2s ease;
+}
+.cassette-player img:hover {
+    transform: scale(1.02);
+}
+.now-playing {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.8rem;
+    color: #0f0;
+    background: rgba(0,0,0,0.6);
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin-top: 0.8rem;
+    border-left: 4px solid #0f0;
+    transition: opacity 0.3s;
+    white-space: normal;
+    max-width: 190px;
+    text-align: center;
+    word-break: break-word;
+}
+.cassette-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    gap: 2rem;
+    margin: 4rem auto 2rem;
+    background-image: url('desk-with-cassette.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.7);
+}
+.cassette-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.vertical-texts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+.vertical-text {
+    font-family: 'Press Start 2P', monospace;
+    color: #ff66cc;
+    background: rgba(0,0,0,0.5);
+    padding: 0.5rem 1rem;
+    line-height: 1.4;
+    text-align: center;
+}
+.jp { font-size: 1.5rem; }
+.ru { font-size: 1rem; }
+.cassette-tooltip {
+    max-width: 150px;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: black;
+    color: #0f0;
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 10;
+    display: none;
+    font-family: 'Press Start 2P', monospace;
+}
+.pixel-equalizer {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 15px;
+}
+.pixel-equalizer span {
+    display: block;
+    width: 6px;
+    height: 8px;
+    background-color: #0f0;
+    box-shadow: 0 0 2px #0f0;
+    transition: all 0.1s ease;
+}
+.cassette-player.playing .pixel-equalizer span {
+    animation: bounce 0.8s infinite ease-in-out alternate;
+}
+.cassette-player.playing .pixel-equalizer span:nth-child(1) { height: 10px; animation-duration: 0.6s; animation-delay: 0s; }
+.cassette-player.playing .pixel-equalizer span:nth-child(2) { height: 20px; animation-duration: 0.7s; animation-delay: 0.1s; }
+.cassette-player.playing .pixel-equalizer span:nth-child(3) { height: 15px; animation-duration: 0.5s; animation-delay: 0.2s; }
+.cassette-player.playing .pixel-equalizer span:nth-child(4) { height: 25px; animation-duration: 0.8s; animation-delay: 0s; }
+.cassette-player.playing .pixel-equalizer span:nth-child(5) { height: 30px; animation-duration: 0.6s; animation-delay: 0.3s; }
+.cassette-player.playing .pixel-equalizer span:nth-child(6) { height: 18px; animation-duration: 0.9s; animation-delay: 0.1s; }
+.cassette-player.playing .pixel-equalizer span:nth-child(7) { height: 12px; animation-duration: 0.7s; animation-delay: 0.2s; }
+.cassette-player.playing .pixel-equalizer span:nth-child(8) { height: 22px; animation-duration: 0.5s; animation-delay: 0s; }
+@keyframes bounce {
+    0% { transform: scaleY(0.4); }
+    100% { transform: scaleY(1); }
+}
+.archive-features {
+    flex: 1;
+    max-width: 400px;
+    background: rgba(0,0,0,0.75);
+    border: 2px solid #0f0;
+    padding: 1.5rem;
+    box-shadow: 0 0 15px rgba(0,255,0,0.3);
+    font-family: 'Press Start 2P', monospace;
+    color: #0f0;
+    align-self: center;
+}
+.features-title {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #ff66cc;
+    margin-bottom: 1.2rem;
+    letter-spacing: 1px;
+}
+.features-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+.feature-item {
+    font-size: 0.65rem;
+    line-height: 1.4;
+    border-left: 2px solid #ff66cc;
+    padding-left: 0.8rem;
+}
+.features-quote {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.65rem;
+    color: #ffcc00;
+    border-top: 1px dashed #0f0;
+    padding-top: 1rem;
+}
+@media (max-width: 768px) {
+    .cassette-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.5rem;
+    }
+    .archive-features {
+        max-width: 100%;
+        margin-top: 1rem;
+    }
+    .features-title { font-size: 0.7rem; }
+    .feature-item { font-size: 0.55rem; }
+}
+@media (max-width: 600px) {
+    body { flex-direction: column; justify-content: flex-start; }
+    .cassette-player img { max-width: 80px; }
+    .now-playing { font-size: 0.5rem; padding: 0.4rem 0.1rem; }
+    .header-sky { width: 100%; height: 900px; }
+    .vertical-text { font-size: 0.7rem; }
+    .cassette-tooltip {
+        font-size: 0.5rem;
+        padding: 3px 6px;
+        white-space: normal;
+        max-width: 200px;
+        text-align: center;
+        bottom: 100%;
+    }
+}
+
+/* ===== РАБОЧИЙ СТОЛ WINDOWS 95 ===== */
+.win95-section {
+    margin: 4rem auto;
+    display: flex;
+    justify-content: center;
+}
+.monitor {
+    background: #222;
+    padding: 15px 15px 40px 15px;
+    border-radius: 20px 20px 15px 15px;
+    box-shadow: 0 15px 0 #111;
+    display: inline-block;
+}
+.monitor-screen {
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 640px;
+    max-width: none;
+    height: 480px;
+    position: relative;
+    font-family: 'Press Start 2P', monospace;
+}
+.desktop {
+    background-color: #008080;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.desktop-icons {
+    flex: 1;
+    padding: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-content: flex-start;
+}
+.icon {
+    width: 80px;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+    font-size: 10px;
+    text-shadow: 1px 1px 0 black;
+}
+.icon img {
+    width: 48px;
+    display: block;
+    margin: 0 auto 4px;
+    image-rendering: pixelated;
+}
+.icon:hover span {
+    color: yellow !important;
+}
+.taskbar {
+    background: silver;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
+    border-top: 2px solid #dfdfdf;
+    font-size: 12px;
+    font-family: monospace;
+}
+.start-button {
+    background: silver;
+    border: 2px outset white;
+    padding: 2px 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.taskbar-time {
+    font-family: monospace;
+}
+.notepad-window {
+    background: silver;
+    width: 90%;
+    height: 100%;
+    margin: 20px auto;
+    border: 3px solid #dfdfdf; /* solid делает границу непрерывной линией, не пунктирной и не точечной */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 4px 4px 0 #0f0f0f;
+}
+.window-header {
+    background: #000080;
+    color: white;
+    padding: 6px;
+    display: flex; /* flex - это режим гибкой верстки, чтобы растягивать, сжимать, выравнивать элементы по удобным правилам */
+    justify-content: space-between; /* распределяет дочерние элементы по горизонтальной оси */
+    cursor: move;
+    user-select: none;
+}
+.window-title {
+    font-size: 12px;
+}
+.close-btn {
+    background: silver;
+    border: 1px solid white;
+    font-weight: bold;
+    cursor: pointer;
+    width: 22px;
+    text-align: center;
+}
+.window-content {
+    background: #e0e0e0;
+    padding: 16px;
+    flex: 1;
+    color: black;
+    font-family: monospace;
+    font-size: 14px;
+}
+.window-content label {
+    display: block;
+    margin: 8px 0 4px;
+}
+.window-content input,
+.window-content textarea {
+    width: 100%;
+    background: white;
+    border: 2px inset silver;
+    padding: 6px;
+    margin-bottom: 12px;
+    font-family: monospace;
+}
+.win95-btn {
+    background: silver;
+    border: 2px outset white;
+    padding: 4px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 8px;
+}
+.win95-btn:active {
+    border: 2px inset white;
+}
+.archive-message {
+    margin-top: 12px;
+    color: green;
+    font-weight: bold;
+    text-align: center;
+}
+/* ===== БЛОК "О ПРОЕКТЕ" ===== */
+.about-project {
+    margin: 4rem auto;
+    max-width: 800px;
+    background: rgba(0,0,0,0.65);
+    border: 2px solid #0f0;
+    padding: 2rem;
+    box-shadow: 0 0 20px rgba(0,255,0,0.2);
+    font-family: 'Press Start 2P', monospace;
+}
+
+.about-title {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #ff66cc;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    letter-spacing: 2px;
+}
+
+.about-item {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
+}
+
+.about-icon {
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.about-text {
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: #0f0;
+    text-align: left;
+    word-break: break-word;
+}
+
+.about-text strong {
+    color: #ffcc00;
+}
+
+.contact-link {
+    color: #ff66cc;
+    text-decoration: none;
+}
+
+.contact-link:hover {
+    text-decoration: underline;
+}
+
+/* Адаптив для телефона */
+@media (max-width: 768px) {
+    .about-project {
+        padding: 1rem;
+        margin: 2rem 1rem;
+    }
+    .about-title {
+        font-size: 0.8rem;
+    }
+    .about-text {
+        font-size: 0.6rem;
+    }
+    .about-icon {
+        width: 24px;
+        height: 24px;
+    }
+}
+/* Адаптив для монитора на телефоне */
+@media (max-width: 768px) {
+    .win95-section {
+        overflow-x: auto; 
+        justify-content: flex-start;
+    }
+    .monitor-screen {
+        width: 640px !important;   /* принудительно фиксируем */
+        height: 480px !important;
+        max-width: none !important;
+    }
+    .icon {
+        width: 60px;
+        font-size: 8px;
+    }
+    .icon img {
+        width: 32px;
+    }
+    .window-content {
+        font-size: 10px;
+        padding: 8px;
+    }
+    .window-content input,
+    .window-content textarea {
+        font-size: 10px;
+    }
+}
+/* Глитч-эффект для заголовка */
+/* Глитч-эффект для заголовка – постоянный, без исчезновения */
+/* Глитч-эффект (твой стиль, исправленный) */
+/* Глитч-эффект без дублирования текста и без пропадания */
+/* Глитч-эффект с постоянным движением и без пропадания */
+/* Глитч-эффект без дублирования текста */
+/* Центрирование и стили для глитча 
+.glitch {
+    position: relative;
+    display: block;           /* чтобы занимал всю ширину */
+    font-family: 'Rakkas', cursive;
+    font-size: 3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: transparent;      /* скрываем возможный внутренний текст */
+    background: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+/*
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: none;
+    pointer-events: none;
+    color: #fff;
+    text-align: center;
+    white-space: normal;
+    word-break: break-word;
+}
+
+.glitch::before {
+    animation: glitch-wiggle-red 0.25s infinite steps(2, end);
+    text-shadow: -2px 0 #ff00cc, 2px 0 #00fff9;
+}
+
+.glitch::after {
+    animation: glitch-wiggle-blue 0.3s infinite steps(2, end);
+    text-shadow: 2px 0 #ff00cc, -2px 0 #00fff9;
+}
+
+@keyframes glitch-wiggle-red {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 1px); }
+    40% { transform: translate(2px, -1px); }
+    60% { transform: translate(-1px, 2px); }
+    80% { transform: translate(1px, -2px); }
+    100% { transform: translate(0); }
+}
+
+@keyframes glitch-wiggle-blue {
+    0% { transform: translate(0); }
+    25% { transform: translate(1px, -2px); }
+    50% { transform: translate(-2px, 1px); }
+    75% { transform: translate(2px, 2px); }
+    100% { transform: translate(0); }
+}
+
+/* Подпись под глитчем */
+.warning {
+    text-align: center;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.8rem;
+    color: #ffcc00;
+    margin-top: 1rem;
+    text-shadow: 1px 1px 0 black;
+}
